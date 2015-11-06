@@ -1,0 +1,14 @@
+#!/usr/bin/perl  
+# get HTML file with external IP address 
+system ("wget -q http://www.worldtimeserver.com/current_time_in_IN.aspx"); 
+open(FILE, '<current_time_in_IN.aspx') || die("Could not open file!"); 
+chomp (@lines = (<FILE>));
+#$iprex = (@lines =~ m/\w+,\s\w+ +\d+,\s\d+/g);
+print "Local Time is:\n your system time is:\n";
+print "\t\t\t";
+system ("date +%r");
+print "Standard Time is:\n";
+@a = system ("grep 'Server Time:' current_time_in_IN.aspx");
+close (FILE);
+unlink("current_time_in_IN.aspx");
+
