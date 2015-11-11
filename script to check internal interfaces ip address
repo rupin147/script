@@ -1,4 +1,5 @@
 #!/usr/bin/perl
+#rupinp.blogspot.com
 @intr = `ip route sh`;
 @strt = ("@intr" =~ m/^d/g);
 @gre = ` ip route sh | grep default`;
