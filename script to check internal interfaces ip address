@@ -18,3 +18,9 @@ else{
   print "$intnme[$_]    $ip[$_]  \n" for (0.. @intr);
    
 }
+#Gateway
+@gtwy = `route -n | grep UG | cut -d" " -f10`;
+chomp(@gtwy);
+@gwintr = `route -n | grep UG | cut -d" " -f43`;
+print "gateway --> @gtwy Through interface --> @gwintr";
+
