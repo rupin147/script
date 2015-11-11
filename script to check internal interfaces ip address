@@ -1,0 +1,19 @@
+#!/usr/bin/perl
+@intr = `ip route sh`;
+@strt = ("@intr" =~ m/^d/g);
+@gre = ` ip route sh | grep default`;
+if ( "@intr[0]" ==  "@gre" ){
+     shift @intr ; 
+     @intnme = ("@intr" =~ m/\s\w+\d\s/g);
+     @demo = ("@intr" =~ m/src\s\d+.\d+.\d+.\d+/g);
+     @ip = ("@demo" =~ m/\d+.\d+.\d+.\d+/g);
+  print "$intnme[$_]    $ip[$_]  \n" for (0.. @intr); 
+}
+else{
+        print "@intr";
+     @intnme = ("@intr" =~ m/\s\w+\d\s/g);
+     @demo = ("@intr" =~ m/src\s\d+.\d+.\d+.\d+/g);
+     @ip = ("@demo" =~ m/\d+.\d+.\d+.\d+/g);
+  print "$intnme[$_]    $ip[$_]  \n" for (0.. @intr);
+   
+}
