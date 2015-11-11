@@ -1,4 +1,5 @@
 #!/usr/bin/perl
+#rupinp.blogspot.com
 system ("wget -q http://www.worldtimeserver.com/current_time_in_IN.aspx");
 open(FILE, '<current_time_in_IN.aspx') || die("Could not open file!");
 chomp(@lines = (<FILE>));
