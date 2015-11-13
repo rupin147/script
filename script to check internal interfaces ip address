@@ -1,26 +1,44 @@
 #!/usr/bin/perl
-#rupinp.blogspot.com
+printf "\e[8;70;180;t";
+system ("clear");
 @intr = `ip route sh`;
 @strt = ("@intr" =~ m/^d/g);
 @gre = ` ip route sh | grep default`;
+@mac = `ifconfig -a | grep HWaddr`;
+
 if ( "@intr[0]" ==  "@gre" ){
-     shift @intr ; 
+     shift @intr ;
      @intnme = ("@intr" =~ m/\s\w+\d\s/g);
      @demo = ("@intr" =~ m/src\s\d+.\d+.\d+.\d+/g);
      @ip = ("@demo" =~ m/\d+.\d+.\d+.\d+/g);
-  print "$intnme[$_]    $ip[$_]  \n" for (0.. @intr); 
+     @macf = ("@mac" =~ m/[A-Fa-f0-9]{2}:[A-Fa-f0-9]{2}:[A-Fa-f0-9]{2}:[A-Fa-f0-9]{2}:[A-Fa-f0-9]{2}:[A-Fa-f0-9]{2}/g);
+     @mcintr = ("@mac" =~ /(^[\sA-Za-z0-9]\w+)/gm);
+ #IPADDRESS
+    print "\n\n\n\n\n";
+   print "\t\t\t\t\t--------------<<<  INTERFACES IP ADDRESS   >>>-----------------\n\n";
+    print "\t\t\t\t\t\t$intnme[$_]     $ip[$_] \n" for (0.. @intr);
+   print "\t\t\t\t\t--------------<<<  INTERFACES MAC ADDRESS   >>>----------------\n\n";
+     print "\t\t\t\t\t\t$mcintr[$_]    $macf[$_]\n" for (0.. @macf);
 }
 else{
         print "@intr";
      @intnme = ("@intr" =~ m/\s\w+\d\s/g);
      @demo = ("@intr" =~ m/src\s\d+.\d+.\d+.\d+/g);
      @ip = ("@demo" =~ m/\d+.\d+.\d+.\d+/g);
-  print "$intnme[$_]    $ip[$_]  \n" for (0.. @intr);
-   
+     print "\t\t\t\t\t-----------<<<   INTERFACES IP ADDRESS    >>>-----------------\n\n";
+  print "\t\t\t\t\t\t$intnme[$_]    $ip[$_]  \n" for (0.. @intr);
+      @macf = ("@mac" =~ m/[A-Fa-f0-9]{2}:[A-Fa-f0-9]{2}:[A-Fa-f0-9]{2}:[A-Fa-f0-9]{2}:[A-Fa-f0-9]{2}:[A-Fa-f0-9]{2}/g);
+     @mcintr = ("@mac" =~ /(^[\sA-Za-z0-9]\w+)/gm);
+      print "\t\t\t\t\t----------<<<   INTERFACES MAC ADDRESS   >>>----------------\n\n";
+     print "\t\t\t\t\t\t$macf[$_]   $mcintr[$_]\n" for (0.. @macf);
+
+
 }
 #Gateway
 @gtwy = `route -n | grep UG | cut -d" " -f10`;
 chomp(@gtwy);
 @gwintr = `route -n | grep UG | cut -d" " -f43`;
-print "gateway --> @gtwy Through interface --> @gwintr";
+print "\t\t\t\t\t\---------------<<<   GATEWAY INFO   >>>--------------------\n\n";
+print "\t\t\t\t\t\tgateway --> @gtwy Through interface --> @gwintr\n\n\n";
+print "\t\t\t-------------------<<<   END @ rupinp.blogspot.com    >>>>----------------------\n\n";
 
